@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 public class Banheiro {
     private Semaphore sem;
@@ -41,7 +40,6 @@ public class Banheiro {
             //         try {
             //             banheiro.usar(id);
             //         } catch (InterruptedException e) {
-            //             // TODO Auto-generated catch block
             //             e.printStackTrace();
             //         }
             //         System.out.println(id + " saiu do banheiro");
@@ -65,7 +63,6 @@ class Pessoa implements Runnable {
         try {
             banheiro.usar(id);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
