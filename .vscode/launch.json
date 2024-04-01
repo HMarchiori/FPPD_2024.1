@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Contador",
+      "request": "launch",
+      "mainClass": "Contador",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
