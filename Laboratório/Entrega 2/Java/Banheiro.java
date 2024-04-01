@@ -1,5 +1,8 @@
+package Java;
+
 import java.util.Random;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 public class Banheiro {
     private Semaphore sem;
@@ -9,11 +12,10 @@ public class Banheiro {
     }
 
     public void usar(int id) throws InterruptedException {
-        sem.acquire();
-        // if (sem.tryAcquire(3, TimeUnit.SECONDS) == false) {
-        //     System.out.println(id + " desistiu de usar o banheiro");
-        //     return;
-        // }
+        if (!sem.tryAcquire(3, TimeUnit.SECONDS)) {
+            System.out.println(id + " desistiu de usar o banheiro");
+            return;
+        }
         System.out.println(id + " usando banheiro");
         Random rand = new Random(); 
         int tempo = 1000 + rand.nextInt(4000);

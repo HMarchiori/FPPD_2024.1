@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Banheiro",
+      "request": "launch",
+      "mainClass": "Java.Banheiro",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
+      "type": "java",
       "name": "MinhaPrimeiraThread",
       "request": "launch",
       "mainClass": "MinhaPrimeiraThread",
