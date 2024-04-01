@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "MinhaPrimeiraThread",
+      "request": "launch",
+      "mainClass": "MinhaPrimeiraThread",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
+      "type": "java",
       "name": "Contador",
       "request": "launch",
       "mainClass": "Contador",
