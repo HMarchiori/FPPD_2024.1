@@ -24,6 +24,8 @@ public class Mapa {
         registraElementos();
         carregaMapa(arquivoMapa);
         areaRevelada = new boolean[mapa.size()+1000][mapa.get(0).length()+1000];
+        char[][] maze = MazeGenerator.generateMaze();
+        atualizaMapa(maze);
         atualizaCelulasReveladas();
     }
 
@@ -145,6 +147,18 @@ public class Mapa {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Atualiza o mapa com o resultado do gerador de labirinto
+    private void atualizaMapa(char[][] maze) {
+        mapa.clear();
+        for (int i = 0; i < maze.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < maze[i].length; j++) {
+                sb.append(maze[i][j]);
+            }
+            mapa.add(sb.toString());
         }
     }
 
