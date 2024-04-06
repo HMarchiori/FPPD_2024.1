@@ -1,4 +1,4 @@
-public class Inimigo extends Thread {
+public class SecondChar extends Thread {
     public void run() {
         System.out.println("Inimigo: Iniciando execução");
         try {

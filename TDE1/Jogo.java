@@ -6,11 +6,11 @@ import java.awt.event.KeyListener;
 public class Jogo extends JFrame implements KeyListener {
     private JLabel statusBar;
     private Mapa mapa;
-    private final Color fogColor = new Color(192, 192, 192, 150); // Cor cinza claro com transparência para nevoa
-    private final Color characterColor = Color.BLACK; // Cor preta para o personagem
+    private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
+    private final Color characterColor = Color.WHITE; // Cor preta para o personagem
 
     public Jogo(String arquivoMapa) {
-        setTitle("Jogo de Aventura");
+        setTitle("TDE1 Caroline e Henrique");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusable(true);
@@ -24,6 +24,7 @@ public class Jogo extends JFrame implements KeyListener {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                setBackground(Color.BLACK);
                 // Define a fonte para garantir que o caractere caiba em 10x10 pixels
                 Font font = new Font("Roboto", Font.BOLD, 12);
                 g.setFont(font);
@@ -38,33 +39,33 @@ public class Jogo extends JFrame implements KeyListener {
         JButton btnDown = new JButton("Baixo (S)");
         JButton btnRight = new JButton("Direita (D)");
         JButton btnLeft = new JButton("Esquerda (A)");
-        JButton btnInterect = new JButton("Interagir (E)");
-        JButton btnAttack = new JButton("Ação Secundária (J)");
+        //JButton btnInterect = new JButton("Interagir (E)");
+        //JButton btnAttack = new JButton("Ação Secundária (J)");
 
         // Evita que os botões recebam o foco e interceptem os eventos de teclado
         btnUp.setFocusable(false);
         btnDown.setFocusable(false);
         btnRight.setFocusable(false);
         btnLeft.setFocusable(false);
-        btnInterect.setFocusable(false);
-        btnAttack.setFocusable(false);
+        //btnInterect.setFocusable(false);
+        //btnAttack.setFocusable(false);
 
         // Listeners para os botões
         btnUp.addActionListener(e -> move(Direcao.CIMA));
         btnDown.addActionListener(e -> move(Direcao.BAIXO));
         btnRight.addActionListener(e -> move(Direcao.DIREITA));
         btnLeft.addActionListener(e -> move(Direcao.ESQUERDA));
-        btnInterect.addActionListener(e -> interage());
-        btnAttack.addActionListener(e -> ataca());
+        //btnInterect.addActionListener(e -> interage());
+        //btnAttack.addActionListener(e -> ataca());
 
         // Layout dos botões
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.add(btnUp);
         buttonPanel.add(btnDown);
-        buttonPanel.add(btnInterect);
+        //buttonPanel.add(btnInterect);
         buttonPanel.add(btnRight);
         buttonPanel.add(btnLeft);
-        buttonPanel.add(btnAttack);
+        //buttonPanel.add(btnAttack);
 
         // Barra de status
         statusBar = new JLabel("Posição: (" + mapa.getX() + "," + mapa.getY() + ")");
