@@ -80,7 +80,7 @@ public class Mapa {
         }
 
         if (!podeMover(x + dx, y + dy)) {
-            System.out.println("Não pode mover");
+            //System.out.println("Não pode mover");
             return false;
         }
 
