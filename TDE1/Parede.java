@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Parede implements ElementoMapa {
+public class Parede implements ElementoMapa,ElementoColorido {
     private Color cor;
     private Character simbolo;
 
@@ -16,6 +16,11 @@ public class Parede implements ElementoMapa {
     public Color getCor() {
         return cor;
     }
+
+    public void setCor(Color novaCor) {
+        this.cor = novaCor;
+    }
+
 
     @Override
     public boolean podeSerAtravessado() {

@@ -7,7 +7,7 @@ public class Jogo extends JFrame implements KeyListener {
     private JLabel statusBar;
     private Mapa mapa;
     private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
-    private final Color characterColor = Color.WHITE; // Cor preta para o personagem
+    private final Color characterColor = Color.WHITE; // Cor branca para o personagem
 
     public Jogo(String arquivoMapa) {
         setTitle("TDE1 Caroline e Henrique");
@@ -18,6 +18,11 @@ public class Jogo extends JFrame implements KeyListener {
 
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
+
+        int delay = 1000; // Delay em milissegundos entre as mudanças de cor
+        RandomPaint pintorMapa = new RandomPaint(mapa, delay);
+        Thread threadPintor = new Thread(pintorMapa);
+        threadPintor.start();
 
         // Painel para desenhar o mapa do jogo
         JPanel mapPanel = new JPanel() {
