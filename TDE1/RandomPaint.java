@@ -20,10 +20,10 @@ public class RandomPaint implements Runnable {
                 for (int i = 0; i < mapa.getNumLinhas(); i++) {
                     for (int j = 0; j < mapa.getNumColunas(); j++) {
                         ElementoMapa elemento = mapa.getElemento(j, i);
-                        if (elemento instanceof ElementoColorido) {
-                            ElementoColorido elementoColorido = (ElementoColorido) elemento;
+                        if (elemento instanceof colorInterface) {
+                            colorInterface colorInterface = (colorInterface) elemento;
                             Color novaCor = gerarCorAleatoria();
-                            elementoColorido.setCor(novaCor);
+                            colorInterface.setCor(novaCor);
                         }
                     }
                 }

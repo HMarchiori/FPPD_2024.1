@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Vegetacao implements ElementoMapa,ElementoColorido {
+public class Vegetacao implements ElementoMapa, colorInterface {
     private Color cor;
     private Character simbolo;
 

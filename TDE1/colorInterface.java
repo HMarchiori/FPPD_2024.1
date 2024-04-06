@@ -1,5 +1,5 @@
 import java.awt.Color;
 
-public interface ElementoColorido {
+public interface colorInterface {
     void setCor(Color novaCor);
 }

@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Parede implements ElementoMapa,ElementoColorido {
+public class Parede implements ElementoMapa, colorInterface {
     private Color cor;
     private Character simbolo;
 
