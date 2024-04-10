@@ -3,7 +3,8 @@ import java.util.Random;
 public class ThreadMoeda implements Runnable {
     private Jogo jogo;
     private Mapa mapa;
-
+    private Random random = new Random();
+    
     public ThreadMoeda(Jogo jogo, int x, int y, Mapa mapa) {
         this.jogo = jogo;
         this.mapa = mapa;

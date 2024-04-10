@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Jogo",
+      "request": "launch",
+      "mainClass": "Jogo",
+      "projectName": "FPPD_2024.1-1_eaa5c227"
+    },
+    {
+      "type": "java",
       "name": "Banheiro",
       "request": "launch",
       "mainClass": "Java.Banheiro",
