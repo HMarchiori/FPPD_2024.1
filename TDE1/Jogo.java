@@ -20,7 +20,7 @@ public class Jogo extends JFrame implements KeyListener {
         mapa = new Mapa(arquivoMapa);
 
         int delay = 1000; // Delay em milissegundos entre as mudanças de cor
-        RandomPaint pintorMapa = new RandomPaint(mapa, delay);
+        RandomPaint pintorMapa = new RandomPaint(this, mapa, delay);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
 

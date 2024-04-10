@@ -5,8 +5,10 @@ public class RandomPaint implements Runnable {
     private final Mapa mapa;
     private final int delay;
     private final Random random;
+    private Jogo jogo;
 
-    public RandomPaint(Mapa mapa, int delay) {
+    public RandomPaint(Jogo jogo, Mapa mapa, int delay) {
+        this.jogo = jogo;
         this.mapa = mapa;
         this.delay = delay;
         this.random = new Random();
@@ -27,6 +29,8 @@ public class RandomPaint implements Runnable {
                         }
                     }
                 }
+                // Repinta o mapa
+                jogo.repaint();
                 Thread.sleep(delay);
             }
         } catch (InterruptedException e) {
