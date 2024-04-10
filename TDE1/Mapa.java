@@ -16,7 +16,7 @@ public class Mapa {
     private boolean[][] areaRevelada; // Rastreia quais partes do mapa foram reveladas
     private final Color brickColor = new Color(153, 76, 0); // Cor marrom para tijolos
     private final Color vegetationColor = new Color(34, 139, 34); // Cor verde para vegetação
-    private final int RAIO_VISAO = 5; // Raio de visão do personagem
+    private final int RAIO_VISAO = 100; // Raio de visão do personagem
 
     public Mapa(String arquivoMapa) {
         mapa = new ArrayList<>();
@@ -52,6 +52,10 @@ public class Mapa {
     public ElementoMapa getElemento(int x, int y) {
         Character id = mapa.get(y).charAt(x);
         return elementos.get(id);
+    }
+
+    public ElementoMapa setElementoMapa(int x, int y, ElementoMapa elemento) {
+        return elementos.put(mapa.get(y).charAt(x), elemento);
     }
 
     public boolean estaRevelado(int x, int y) {
@@ -179,5 +183,6 @@ public class Mapa {
         elementos.put('#', new Parede('▣', brickColor));
         // Vegetação
         elementos.put('V', new Vegetacao('♣', vegetationColor));
+        // Moeda
     }
 }

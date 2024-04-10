@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Jogo extends JFrame implements KeyListener {
     private JLabel statusBar;
     private Mapa mapa;
-    private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
+    //private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
     private final Color characterColor = Color.WHITE; // Cor branca para o personagem
 
     public Jogo(String arquivoMapa) {
@@ -23,6 +23,10 @@ public class Jogo extends JFrame implements KeyListener {
         RandomPaint pintorMapa = new RandomPaint(this, mapa, delay);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
+
+        Moeda moeda = new Moeda(this, mapa);
+        Thread threadMoeda = new Thread(moeda);
+        threadMoeda.start();
 
         // Painel para desenhar o mapa do jogo
         JPanel mapPanel = new JPanel() {
@@ -148,8 +152,8 @@ public class Jogo extends JFrame implements KeyListener {
                     }
                 } else {
                     // Pinta a área não revelada
-                    g.setColor(fogColor);
-                    g.fillRect(j * tamanhoCelula, i * tamanhoCelula, tamanhoCelula, tamanhoCelula);
+                    //g.setColor(fogColor);
+                    //g.fillRect(j * tamanhoCelula, i * tamanhoCelula, tamanhoCelula, tamanhoCelula);
                 }
             }
         }
