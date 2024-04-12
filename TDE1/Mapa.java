@@ -54,8 +54,9 @@ public class Mapa {
         return elementos.get(id);
     }
 
-    public ElementoMapa setElementoMapa(int x, int y, ThreadMoeda threadMoeda) {
-        return elementos.put(mapa.get(y).charAt(x), (ElementoMapa) threadMoeda);
+    public void colocarMoeda(int x, int y) {
+        Character id = mapa.get(x).charAt(y);
+        elementos.put(id, new Moeda('◉', Color.YELLOW));
     }
 
     public boolean estaRevelado(int x, int y) {

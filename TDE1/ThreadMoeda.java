@@ -5,17 +5,11 @@ public class ThreadMoeda implements Runnable {
     private Mapa mapa;
     private Random random = new Random();
     
-    public ThreadMoeda(Jogo jogo, int x, int y, Mapa mapa) {
+    public ThreadMoeda(Jogo jogo, Mapa mapa) {
         this.jogo = jogo;
         this.mapa = mapa;
     }
 
-    public void colocarMoeda(int x, int y,Mapa mapa) {
-        if (mapa.getElemento(x, y).getSimbolo() != '#') {
-            mapa.setElementoMapa(x, y, this);   
-            jogo.repaint();     
-        }
-    }
 
     @Override
     public void run() {
@@ -24,7 +18,8 @@ public class ThreadMoeda implements Runnable {
             int y = random.nextInt(mapa.getNumLinhas());
 
             if (mapa.getElemento(x, y).getSimbolo() == null) {
-                colocarMoeda(x, y, mapa);
+                mapa.colocarMoeda(x, y);
+                jogo.repaint();
             }
 
             try {

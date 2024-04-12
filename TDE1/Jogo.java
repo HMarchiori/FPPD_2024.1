@@ -24,6 +24,9 @@ public class Jogo extends JFrame implements KeyListener {
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
 
+        ThreadMoeda threadM= new ThreadMoeda(this, mapa);
+        Thread threadMoeda = new Thread(threadM);
+        threadMoeda.start();
 
         // Painel para desenhar o mapa do jogo
         JPanel mapPanel = new JPanel() {
