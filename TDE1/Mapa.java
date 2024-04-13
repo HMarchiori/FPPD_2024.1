@@ -53,6 +53,10 @@ public class Mapa {
         Character id = mapa.get(y).charAt(x);
         return elementos.get(id);
     }
+    
+    public List<String> getMapa() {
+        return mapa;
+    }
 
     public void colocarMoeda(int x, int y) {
         Character id = mapa.get(x).charAt(y);
