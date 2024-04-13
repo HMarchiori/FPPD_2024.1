@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.Map;
 public class Mapa {
     private List<String> mapa;
     private Map<Character, ElementoMapa> elementos;
+    private Map<Point, ElementoMapa> elementosPorPosicao;
     private int x = 50; // Posição inicial X do personagem
     private int y = 50; // Posição inicial Y do personagem
     private final int TAMANHO_CELULA = 10; // Tamanho de cada célula do mapa
@@ -21,6 +23,7 @@ public class Mapa {
     public Mapa(String arquivoMapa) {
         mapa = new ArrayList<>();
         elementos = new HashMap<>();
+        elementosPorPosicao = new HashMap<>();
         registraElementos();
         carregaMapa(arquivoMapa);
         areaRevelada = new boolean[mapa.size()+1000][mapa.get(0).length()+1000];
@@ -50,6 +53,13 @@ public class Mapa {
     }
 
     public ElementoMapa getElemento(int x, int y) {
+        Point p = new Point(x, y);
+        ElementoMapa elementoEspecifico = elementosPorPosicao.get(p);
+        if (elementoEspecifico != null) {
+            // Retorna o elemento específico (como moedas) se existir nesta posição
+            return elementoEspecifico;
+        }
+        // Se não houver um elemento específico, retorna o elemento padrão baseado no caractere do mapa
         Character id = mapa.get(y).charAt(x);
         return elementos.get(id);
     }
@@ -59,8 +69,7 @@ public class Mapa {
     }
 
     public void colocarMoeda(int x, int y) {
-        Character id = mapa.get(x).charAt(y);
-        elementos.put(id, new Moeda('◉', Color.YELLOW));
+        elementosPorPosicao.put(new Point(x, y), new Moeda('◉', Color.YELLOW));
     }
 
     public boolean estaRevelado(int x, int y) {

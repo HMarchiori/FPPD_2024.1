@@ -14,20 +14,23 @@ public class ThreadMoeda implements Runnable {
 
     @Override
     public void run() {
-        synchronized (lock) { // Acquire lock
-            if (numCoins < 10) { // Check if number of coins is less than 10
+        synchronized (lock) {
+            if (numCoins < 10) {
                 for (int i = 0; i < 10; i++) {
-                    int x = random.nextInt(mapa.getNumColunas());
-                    int y = random.nextInt(mapa.getNumLinhas());
+                    int x = random.nextInt(mapa.getNumLinhas());
+                    int y = random.nextInt(mapa.getNumColunas());
 
-                    if (mapa.getMapa().get(x).charAt(y) == ' ') {
-                        mapa.colocarMoeda(x, y);
-                        numCoins++; // Increment number of coins
-                        try {
+                    try {
+                        // Certifique-se de que não há moeda já colocada na posição
+                        if (mapa.getMapa().get(x).charAt(y) == ' ') {
+                            mapa.colocarMoeda(x, y);
+                            numCoins++; // Increment number of coins
                             Thread.sleep(1500); // Sleep after placing a new coin
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
                         }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.err.println("Tentativa de acesso a índice inválido: " + e.getMessage());
                     }
                 }
             }
