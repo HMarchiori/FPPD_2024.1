@@ -10,7 +10,7 @@ public class Jogo extends JFrame implements KeyListener {
     private final Color characterColor = Color.WHITE; // Cor branca para o personagem
 
     public Jogo(String arquivoMapa) {
-        setTitle("TDE1 Caroline e Henrique");
+        setTitle("TDE1");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusable(true);

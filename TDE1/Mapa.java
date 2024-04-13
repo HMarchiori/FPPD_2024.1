@@ -188,7 +188,5 @@ public class Mapa {
         elementos.put('#', new Parede('▣', brickColor));
         // Vegetação
         elementos.put('V', new Vegetacao('♣', vegetationColor));
-        // Moeda
-        elementos.put('M', new Moeda('◉', Color.YELLOW));
     }
 }
