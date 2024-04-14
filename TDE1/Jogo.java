@@ -12,7 +12,7 @@ public class Jogo extends JFrame implements KeyListener {
 
     public Jogo(String arquivoMapa) {
 
-        timer = new GameTimer();
+        timer = new GameTimer(this);
         Thread threadTimer = new Thread(timer);
         threadTimer.start();
 
@@ -98,6 +98,15 @@ public class Jogo extends JFrame implements KeyListener {
 
         // Adiciona o listener para eventos de teclado
         addKeyListener(this);
+    }
+
+    public void stopGame() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 
     public void move(Direcao direcao) {

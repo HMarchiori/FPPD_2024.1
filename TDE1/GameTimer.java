@@ -1,7 +1,10 @@
+import javax.swing.JOptionPane;
+
 public class GameTimer implements Runnable {
     private int tempo = 60;
+    private Jogo jogo;
 
-    public GameTimer() {
+    public GameTimer(Jogo jogo) {
     }
     
     public int getTempoRestante() {
@@ -19,5 +22,7 @@ public class GameTimer implements Runnable {
                 e.printStackTrace();
             }
         }
+        JOptionPane.showMessageDialog(jogo, "Tempo esgotado!");
+        jogo.stopGame();
     }
 }
