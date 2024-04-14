@@ -9,7 +9,7 @@ public class ThreadMoeda implements Runnable {
     public ThreadMoeda(Mapa mapa) {
         this.mapa = mapa;
     }
-
+    
     @Override
     public void run() {
         synchronized (lock) {
@@ -17,13 +17,13 @@ public class ThreadMoeda implements Runnable {
                 for (int i = 0; i < 30; i++) {
                     int x = random.nextInt(mapa.getNumLinhas());
                     int y = random.nextInt(mapa.getNumColunas());
-
+    
                     try {
-                        // Certifique-se de que não há moeda já colocada na posição
-                        if (mapa.getMapa().get(x).charAt(y) == ' ') {
+                        // Usando o novo método para verificar se a posição é válida
+                        if (mapa.podeColocarMoeda(x, y)) {
                             mapa.colocarMoeda(x, y);
-                            numCoins++; // Increment number of coins
-                            Thread.sleep(500); // Sleep after placing a new coin
+                            numCoins++; // Incrementa o número de moedas
+                            Thread.sleep(500); // Pausa após colocar uma nova moeda
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -32,7 +32,7 @@ public class ThreadMoeda implements Runnable {
                     }
                 }
             }
-            lock.notify(); // Unlock and notify waiting threads
-        } // Release lock
+            lock.notify(); // Desbloqueia e notifica as threads em espera
+        }
     }
 }

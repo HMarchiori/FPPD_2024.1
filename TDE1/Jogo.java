@@ -11,36 +11,56 @@ public class Jogo extends JFrame implements KeyListener {
     private final Color characterColor = Color.WHITE; // Cor branca para o personagem
 
     public Jogo(String arquivoMapa) {
-
         timer = new GameTimer(this);
         Thread threadTimer = new Thread(timer);
         threadTimer.start();
-
-
+    
         setTitle("TDE1");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-
+    
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
-
+    
         RandomPaint pintorMapa = new RandomPaint(this, mapa);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
-
-        ThreadMoeda threadM= new ThreadMoeda(mapa);
+    
+        ThreadMoeda threadM = new ThreadMoeda(mapa);
         Thread threadMoeda = new Thread(threadM);
         threadMoeda.start();
+    
+        // Configuração do painel de mapa e botões
+        JPanel mapPanel = setupMapPanel();
+        JPanel buttonPanel = setupButtonPanel();
+    
+        // Barra de status
+        statusBar = new JLabel();
+        updateStatusBar();  // Atualiza a barra de status imediatamente após sua criação
+    
+        // Configuração do painel sul
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
+        southPanel.add(buttonPanel);
+        southPanel.add(statusBar);
+    
+        // Adição dos painéis ao JFrame
+        add(mapPanel, BorderLayout.CENTER);
+        add(southPanel, BorderLayout.SOUTH);
+    
+        // Finalização da configuração do JFrame
+        pack();
+        addKeyListener(this);
+    }
 
-        // Painel para desenhar o mapa do jogo
+    private JPanel setupMapPanel() {
         JPanel mapPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 setBackground(Color.BLACK);
-                // Define a fonte para garantir que o caractere caiba em 10x10 pixels
                 Font font = new Font("Roboto", Font.BOLD, 12);
                 g.setFont(font);
                 desenhaMapa(g);
@@ -48,56 +68,31 @@ public class Jogo extends JFrame implements KeyListener {
             }
         };
         mapPanel.setPreferredSize(new Dimension(800, 600));
-
-        // Botões de movimento
+        return mapPanel;
+    }
+    
+    private JPanel setupButtonPanel() {
         JButton btnUp = new JButton("Cima (W)");
         JButton btnDown = new JButton("Baixo (S)");
         JButton btnRight = new JButton("Direita (D)");
         JButton btnLeft = new JButton("Esquerda (A)");
-        //JButton btnInterect = new JButton("Interagir (E)");
-
-        // Evita que os botões recebam o foco e interceptem os eventos de teclado
+    
         btnUp.setFocusable(false);
         btnDown.setFocusable(false);
         btnRight.setFocusable(false);
         btnLeft.setFocusable(false);
-        //btnInterect.setFocusable(false);
-        //btnAttack.setFocusable(false);
-
-        // Listeners para os botões
+    
         btnUp.addActionListener(e -> move(Direcao.CIMA));
         btnDown.addActionListener(e -> move(Direcao.BAIXO));
         btnRight.addActionListener(e -> move(Direcao.DIREITA));
         btnLeft.addActionListener(e -> move(Direcao.ESQUERDA));
-
-        // Layout dos botões
+    
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.add(btnUp);
         buttonPanel.add(btnDown);
         buttonPanel.add(btnRight);
         buttonPanel.add(btnLeft);
-        //buttonPanel.add(btnAttack);
-
-        // Barra de status
-        statusBar = new JLabel("Posição: (" + mapa.getX() + "," + mapa.getY() + ")");
-        statusBar.setBorder(BorderFactory.createEtchedBorder());
-        statusBar.setHorizontalAlignment(SwingConstants.LEFT);
-
-        // Painel para botões e barra de status
-        JPanel southPanel = new JPanel();
-        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
-        southPanel.add(buttonPanel);
-        southPanel.add(statusBar);
-
-        // Adiciona os paineis ao JFrame
-        add(mapPanel, BorderLayout.CENTER);
-        add(southPanel, BorderLayout.SOUTH);
-
-        // Ajusta o tamanho do JFrame para acomodar todos os componentes
-        pack();
-
-        // Adiciona o listener para eventos de teclado
-        addKeyListener(this);
+        return buttonPanel;
     }
 
     public void stopGame() {
@@ -109,31 +104,40 @@ public class Jogo extends JFrame implements KeyListener {
         System.exit(0);
     }
 
+    private void updateStatusBar() {
+        if (statusBar != null) {
+            statusBar.setText("Posição: (" + mapa.getX() + "," + mapa.getY() + ") - " +
+                              "Número de moedas: " + numCoinsCollected + " - " +
+                              "Tempo restante: " + timer.getTempoRestante() + " segundos");
+        }
+    }
+
     public void move(Direcao direcao) {
         if (mapa == null)
             return;
-
-        // Modifica posição do personagem no mapa
+    
         if (!mapa.move(direcao))
             return;
-
-        // Atualiza a barra de status
-        if (statusBar != null)
-            statusBar.setText("Número de moedas: " + 0 + "\n" + "Tempo restante: " + timer.getTempoRestante() + " segundos");
-
-        // Redesenha o painel
+    
+        updateStatusBar(); // Atualiza a barra de status após o movimento
         repaint();
     }
+
+    private int numCoinsCollected = 0; // Contagem de moedas coletadas
 
     public void interage() {
         if (mapa == null)
             return;
-
-        // Cria um diálogo para exibir a mensagem de interação
-        String mensagem = mapa.interage();
-        if (mensagem != null) {
-            JOptionPane.showMessageDialog(this, mensagem);
+    
+        boolean collected = mapa.interage();
+        if (collected) {
+            numCoinsCollected++;
+            JOptionPane.showMessageDialog(this, "Você coletou uma moeda!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há moedas próximas para coletar.");
         }
+        updateStatusBar(); // Atualiza a barra de status após interagir
+        repaint();
     }
 
     public void ataca() {

@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Mapa {
     private List<String> mapa;
     private Map<Character, ElementoMapa> elementos;
     private Map<Point, ElementoMapa> elementosPorPosicao;
-    private int x = 50; // Posição inicial X do personagem
-    private int y = 50; // Posição inicial Y do personagem
+    private int x; // Posição inicial X do personagem
+    private int y; // Posição inicial Y do personagem
     private final int TAMANHO_CELULA = 10; // Tamanho de cada célula do mapa
     private boolean[][] areaRevelada; // Rastreia quais partes do mapa foram reveladas
     private final Color brickColor = new Color(153, 76, 0); // Cor marrom para tijolos
@@ -140,9 +141,26 @@ public class Mapa {
         return false;
     }
 
-    public String interage() {
-        //TODO: Implementar
-        return "Interage";
+    public boolean interage() {
+        // Expande o alcance de verificação para duas células em todas as direções
+        int[] dx = {-2, -1, 0, 1, 2};  // Deslocamentos em X
+        int[] dy = {-2, -1, 0, 1, 2};  // Deslocamentos em Y
+    
+        for (int dxOffset : dx) {
+            for (int dyOffset : dy) {
+                int checkX = x / TAMANHO_CELULA + dxOffset;  // Calcula a posição X para verificar
+                int checkY = y / TAMANHO_CELULA + dyOffset;  // Calcula a posição Y para verificar
+                if (Math.abs(dxOffset) + Math.abs(dyOffset) <= 2) {  // Limita a verificação dentro de um raio de duas células
+                    Point p = new Point(checkX, checkY);
+                    ElementoMapa elemento = elementosPorPosicao.get(p);
+                    if (elemento != null && elemento instanceof Moeda) {
+                        elementosPorPosicao.remove(p);  // Remove a moeda do mapa
+                        return true;  // Indica que uma moeda foi coletada
+                    }
+                }
+            }
+        }
+        return false;  // Retorna falso se nenhuma moeda estiver próxima
     }
 
     public String ataca() {
@@ -155,16 +173,23 @@ public class Mapa {
             String line;
             while ((line = br.readLine()) != null) {
                 mapa.add(line);
-                // Se character 'P' está contido na linha atual, então define a posição inicial do personagem
-                if (line.contains("P")) {
-                    x = line.indexOf('P') * TAMANHO_CELULA;
-                    y = mapa.size() * TAMANHO_CELULA;
-                    // Remove o personagem da linha para evitar que seja desenhado
-                    mapa.set(mapa.size() - 1, line.replace('P', ' '));
-                }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    
+        // Set a random valid starting position
+        Random random = new Random();
+        boolean posValida = false;
+        while (!posValida) {
+            int randX = random.nextInt(getNumColunas());
+            int randY = random.nextInt(getNumLinhas());
+    
+            if (mapa.get(randY).charAt(randX) == ' ') {  // Checks if the position is not a wall
+                x = randX * TAMANHO_CELULA;  // Adjust position based on cell size
+                y = randY * TAMANHO_CELULA;
+                posValida = true;
+            }
         }
     }
 
@@ -197,5 +222,10 @@ public class Mapa {
         elementos.put('#', new Parede('▣', brickColor));
         // Vegetação
         elementos.put('V', new Vegetacao('♣', vegetationColor));
+    }
+
+    public boolean podeColocarMoeda(int x, int y) {
+        char ch = mapa.get(x).charAt(y);
+        return ch == ' '; // Retorna verdadeiro se o local é um espaço vazio
     }
 }
