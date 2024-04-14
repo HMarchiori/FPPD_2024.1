@@ -6,10 +6,17 @@ import java.awt.event.KeyListener;
 public class Jogo extends JFrame implements KeyListener {
     private JLabel statusBar;
     private Mapa mapa;
+    private GameTimer timer;
     //private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
     private final Color characterColor = Color.WHITE; // Cor branca para o personagem
 
     public Jogo(String arquivoMapa) {
+
+        timer = new GameTimer();
+        Thread threadTimer = new Thread(timer);
+        threadTimer.start();
+
+
         setTitle("TDE1");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,12 +26,11 @@ public class Jogo extends JFrame implements KeyListener {
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
 
-        int delay = 1000; // Delay em milissegundos entre as mudanças de cor
-        RandomPaint pintorMapa = new RandomPaint(this, mapa, delay);
+        RandomPaint pintorMapa = new RandomPaint(this, mapa);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
 
-        ThreadMoeda threadM= new ThreadMoeda(this, mapa);
+        ThreadMoeda threadM= new ThreadMoeda(mapa);
         Thread threadMoeda = new Thread(threadM);
         threadMoeda.start();
 
@@ -49,7 +55,6 @@ public class Jogo extends JFrame implements KeyListener {
         JButton btnRight = new JButton("Direita (D)");
         JButton btnLeft = new JButton("Esquerda (A)");
         //JButton btnInterect = new JButton("Interagir (E)");
-        //JButton btnAttack = new JButton("Ação Secundária (J)");
 
         // Evita que os botões recebam o foco e interceptem os eventos de teclado
         btnUp.setFocusable(false);
@@ -64,14 +69,11 @@ public class Jogo extends JFrame implements KeyListener {
         btnDown.addActionListener(e -> move(Direcao.BAIXO));
         btnRight.addActionListener(e -> move(Direcao.DIREITA));
         btnLeft.addActionListener(e -> move(Direcao.ESQUERDA));
-        //btnInterect.addActionListener(e -> interage());
-        //btnAttack.addActionListener(e -> ataca());
 
         // Layout dos botões
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.add(btnUp);
         buttonPanel.add(btnDown);
-        //buttonPanel.add(btnInterect);
         buttonPanel.add(btnRight);
         buttonPanel.add(btnLeft);
         //buttonPanel.add(btnAttack);
@@ -108,7 +110,7 @@ public class Jogo extends JFrame implements KeyListener {
 
         // Atualiza a barra de status
         if (statusBar != null)
-            statusBar.setText("Posição: (" + mapa.getX() + "," + mapa.getY() + ")");
+            statusBar.setText("Número de moedas: " + 0 + "\n" + "Tempo restante: " + timer.getTempoRestante() + " segundos");
 
         // Redesenha o painel
         repaint();

@@ -6,6 +6,13 @@
       "name": "Jogo",
       "request": "launch",
       "mainClass": "Jogo",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
+      "type": "java",
+      "name": "Jogo",
+      "request": "launch",
+      "mainClass": "Jogo",
       "projectName": "FPPD_2024.1-1_eaa5c227"
     },
     {
