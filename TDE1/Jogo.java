@@ -16,7 +16,7 @@ public class Jogo extends JFrame implements KeyListener {
         Thread threadTimer = new Thread(timer);
         threadTimer.start();
     
-        setTitle("TDE1");
+        setTitle("TDE1 - Grupo 12");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusable(true);

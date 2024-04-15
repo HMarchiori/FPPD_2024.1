@@ -29,8 +29,10 @@ public class NPCManager implements Runnable {
 
             for (NPC npc : npcs) {
                 if (npc.getX() == playerX && npc.getY() == playerY) {
-                    // Inicia o diálogo com o NPC
-                    startDialogue(npc);
+                    if (!npc.hasInteracted()){
+                        // Inicia o diálogo com o NPC
+                        startDialogue(npc);
+                    }
                 }
             }
         }
