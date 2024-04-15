@@ -33,8 +33,8 @@ public class Jogo extends JFrame implements KeyListener {
         threadNPCManager.start();
 
         // Adiciona NPCs ao gerenciador
-        npcManager.addNPC(new NPC(10, 20, "Thread Game", new String[]{"Olá, pequeno gafanhoto :)", "Bem-vindo ao meu jogo!"}));
-        npcManager.addNPC(new NPC(100, 100, "Thread Game", new String[]{"Quer uma dica?", "Não caia em armadilhas!"}));
+        npcManager.addNPC(new NPC(10, 20, "Good Game", new String[]{"Olá, pequeno gafanhoto", "Bem-vindo ao meu jogo! \n De presente, receba 10 segundos a mais de jogo ☆"}));
+        npcManager.addNPC(new NPC(100, 100, "So bad", new String[]{"Não caia em armadilhas", "Para que você fique atento, acaba de perder 5 segundos de jogo ✘"}));
 
         RandomPaint pintorMapa = new RandomPaint(this, mapa, timer);
         Thread threadPintor = new Thread(pintorMapa);
@@ -224,6 +224,14 @@ public class Jogo extends JFrame implements KeyListener {
                 ataca();
                 break;
         }
+    }
+
+    public void adicionarTempo(int segundos) {
+        timer.adicionarTempo(segundos);
+    }
+    
+    public void removerTempo(int segundos) {
+        timer.removerTempo(segundos);
     }
 
     @Override

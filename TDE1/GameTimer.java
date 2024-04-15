@@ -13,6 +13,14 @@ public class GameTimer implements Runnable {
         return tempo;
     }
 
+    public void adicionarTempo(int segundos) {
+        tempo += segundos;
+    }
+    
+    public void removerTempo(int segundos) {
+        tempo -= segundos;
+    }
+
     @Override
     public void run() {
         while (tempo > 0) {

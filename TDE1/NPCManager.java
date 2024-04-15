@@ -26,17 +26,31 @@ public class NPCManager implements Runnable {
         synchronized (lock) {
             int playerX = jogo.getMapa().getX();
             int playerY = jogo.getMapa().getY();
-
+    
             for (NPC npc : npcs) {
                 if (npc.getX() == playerX && npc.getY() == playerY) {
-                    if (!npc.hasInteracted()){
+                    if (!npc.hasInteracted()) {
                         // Inicia o diálogo com o NPC
                         startDialogue(npc);
+                        
+                        // Se for o primeiro NPC
+                        if (npc.getName().equals("Good Game")) {
+                            // Adiciona 10 segundos ao tempo restante
+                            jogo.adicionarTempo(10);
+                        } 
+                        // Se for o segundo NPC
+                        else if (npc.getName().equals("So bad")) {
+                            // Remove 5 segundos do tempo restante
+                            jogo.removerTempo(5);
+                        }
+    
+                        // Define hasInteracted como true após a interação
+                        npc.setHasInteracted(true);
                     }
                 }
             }
         }
-    }
+    }    
 
     // Inicia o diálogo com o NPC
     private void startDialogue(NPC npc) {
