@@ -5,21 +5,33 @@ public class RandomPaint implements Runnable {
     private final Mapa mapa;
     private final Random random;
     private Jogo jogo;
-    private final Object lock; // Add a lock object
+    private final Object lock;
+    private final GameTimer gameTimer; // Referência ao GameTimer
 
-    public RandomPaint(Jogo jogo, Mapa mapa) {
+    public RandomPaint(Jogo jogo, Mapa mapa, GameTimer gameTimer) {
         this.jogo = jogo;
         this.mapa = mapa;
         this.random = new Random();
-        this.lock = new Object(); // Initialize the lock object
+        this.lock = new Object(); // Inicializa o objeto de lock
+        this.gameTimer = gameTimer; // Inicializa a referência ao GameTimer
     }
 
     @Override
     public void run() {
         try {
             while (true) {
+                int tempoRestante = gameTimer.getTempoRestante();
+                
+                // Define o intervalo de troca de cores com base no tempo restante
+                long intervalo;
+                if (tempoRestante <= 5) {
+                    intervalo = 500; // Meio segundo
+                } else {
+                    intervalo = 1500;
+                }
+                
                 // Percorre todos os elementos do mapa
-                synchronized (lock) { // Acquire the lock
+                synchronized (lock) {
                     for (int i = 0; i < mapa.getNumLinhas(); i++) {
                         for (int j = 0; j < mapa.getNumColunas(); j++) {
                             ElementoMapa elemento = mapa.getElemento(j, i);
@@ -30,12 +42,12 @@ public class RandomPaint implements Runnable {
                             }
                         }
                     }
-                    lock.notifyAll(); // Notify all threads waiting on the lock
-                } // Release the lock
-                
+                    lock.notifyAll();
+                }
+
                 // Repinta o mapa
                 jogo.repaint();
-                Thread.sleep(1000);
+                Thread.sleep(intervalo); // Dorme pelo intervalo calculado
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

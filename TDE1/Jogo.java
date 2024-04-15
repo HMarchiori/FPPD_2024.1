@@ -24,7 +24,7 @@ public class Jogo extends JFrame implements KeyListener {
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
     
-        RandomPaint pintorMapa = new RandomPaint(this, mapa);
+        RandomPaint pintorMapa = new RandomPaint(this, mapa, timer);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
     
