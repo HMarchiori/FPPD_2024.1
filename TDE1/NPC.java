@@ -1,13 +1,24 @@
 public class NPC {
+    private int x;
+    private int y;
     private String name;
     private String[] dialogues;
-    private int x, y; // Posição do NPC no mapa
+    private boolean hasInteracted; // Variável para rastrear se o NPC já interagiu
 
-    public NPC(String name, String[] dialogues, int x, int y) {
-        this.name = name;
-        this.dialogues = dialogues;
+    public NPC(int x, int y, String name, String[] dialogues) {
         this.x = x;
         this.y = y;
+        this.name = name;
+        this.dialogues = dialogues;
+        this.hasInteracted = false; // Inicializa como não tendo interagido
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public String getName() {
@@ -18,11 +29,11 @@ public class NPC {
         return dialogues;
     }
 
-    public int getX() {
-        return x;
+    public boolean hasInteracted() {
+        return hasInteracted;
     }
 
-    public int getY() {
-        return y;
+    public void setHasInteracted(boolean hasInteracted) {
+        this.hasInteracted = hasInteracted;
     }
 }

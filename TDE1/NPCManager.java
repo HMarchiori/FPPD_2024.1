@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 
 public class NPCManager implements Runnable {
@@ -15,8 +14,10 @@ public class NPCManager implements Runnable {
 
     // Adiciona um NPC ao jogo de forma sincronizada
     public void addNPC(NPC npc) {
-        synchronized (lock) {
-            npcs.add(npc);
+        if (npc.hasInteracted() == false){
+            synchronized (lock) {
+                npcs.add(npc);
+            }
         }
     }
 
@@ -37,9 +38,14 @@ public class NPCManager implements Runnable {
 
     // Inicia o diálogo com o NPC
     private void startDialogue(NPC npc) {
-        for (String dialogue : npc.getDialogues()) {
-            JOptionPane.showMessageDialog(jogo, dialogue, npc.getName(), JOptionPane.INFORMATION_MESSAGE);
-        }
+        // Cria um novo NPCDialog com o frame pai (jogo) e as falas do NPC
+        NPCDialog dialog = new NPCDialog(jogo, npc.getName(), npc.getDialogues());
+
+        // Mostra o diálogo
+        dialog.showDialog();
+
+        // Define hasInteracted como true após a interação
+        npc.setHasInteracted(true);
     }
 
     @Override

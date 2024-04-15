@@ -25,14 +25,16 @@ public class Jogo extends JFrame implements KeyListener {
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
     
-        // Cria o gerenciador de NPCs e inicia a thread
+        // Cria a instância do NPCManager, passando o jogo atual
         npcManager = new NPCManager(this);
+
+        // Cria a thread para o NPCManager e a inicia
         Thread threadNPCManager = new Thread(npcManager);
         threadNPCManager.start();
 
         // Adiciona NPCs ao gerenciador
-        npcManager.addNPC(new NPC("Thread Game", new String[]{"Olá, pequeno gafanhoto :)", "Bem-vindo ao meu jogo!"}, 10, 20));
-        npcManager.addNPC(new NPC("Thread Game", new String[]{"Quer uma dica?", " Não caia em armadilhas!"}, 100, 100));
+        npcManager.addNPC(new NPC(10, 20, "Thread Game", new String[]{"Olá, pequeno gafanhoto :)", "Bem-vindo ao meu jogo!"}));
+        npcManager.addNPC(new NPC(100, 100, "Thread Game", new String[]{"Quer uma dica?", "Não caia em armadilhas!"}));
 
         RandomPaint pintorMapa = new RandomPaint(this, mapa, timer);
         Thread threadPintor = new Thread(pintorMapa);
