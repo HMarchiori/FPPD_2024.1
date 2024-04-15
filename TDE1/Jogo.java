@@ -9,6 +9,7 @@ public class Jogo extends JFrame implements KeyListener {
     private GameTimer timer;
     //private final Color fogColor = new Color(128, 0, 128, 100); // Cor roxa com transparência mais baixa para nevoa
     private final Color characterColor = Color.WHITE; // Cor branca para o personagem
+    private NPCManager npcManager; // Gerenciador de NPCs
 
     public Jogo(String arquivoMapa) {
         timer = new GameTimer(this);
@@ -24,6 +25,15 @@ public class Jogo extends JFrame implements KeyListener {
         // Cria o mapa do jogo
         mapa = new Mapa(arquivoMapa);
     
+        // Cria o gerenciador de NPCs e inicia a thread
+        npcManager = new NPCManager(this);
+        Thread threadNPCManager = new Thread(npcManager);
+        threadNPCManager.start();
+
+        // Adiciona NPCs ao gerenciador
+        npcManager.addNPC(new NPC("Thread Game", new String[]{"Olá, pequeno gafanhoto :)", "Bem-vindo ao meu jogo!"}, 10, 20));
+        npcManager.addNPC(new NPC("Thread Game", new String[]{"Quer uma dica?", " Não caia em armadilhas!"}, 100, 100));
+
         RandomPaint pintorMapa = new RandomPaint(this, mapa, timer);
         Thread threadPintor = new Thread(pintorMapa);
         threadPintor.start();
@@ -110,6 +120,10 @@ public class Jogo extends JFrame implements KeyListener {
                               "Número de moedas: " + numCoinsCollected + " - " +
                               "Tempo restante: " + timer.getTempoRestante() + " segundos");
         }
+    }
+
+    public Mapa getMapa() {
+        return this.mapa;
     }
 
     public void move(Direcao direcao) {
