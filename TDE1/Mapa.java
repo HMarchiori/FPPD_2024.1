@@ -69,7 +69,7 @@ public class Mapa {
         return mapa;
     }
 
-    public void colocarMoeda(int x, int y) {
+    public synchronized void colocarMoeda(int x, int y) {
         elementosPorPosicao.put(new Point(x, y), new Moeda('◉', Color.YELLOW));
     }
 
