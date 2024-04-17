@@ -234,6 +234,12 @@ public class Jogo extends JFrame implements KeyListener {
         timer.removerTempo(segundos);
     }
 
+    public synchronized void atualizarBarraDeStatus() {
+        SwingUtilities.invokeLater(() -> {
+            updateStatusBar();
+        });
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         // Não necessário

@@ -26,6 +26,7 @@ public class GameTimer implements Runnable {
         while (tempo > 0) {
             System.out.println("Tempo restante: " + tempo + " segundos");
             tempo--;
+            jogo.atualizarBarraDeStatus();  // Adicionado para atualizar a barra de status
             try {
                 Thread.sleep(1000);  // espera por 1 segundo
             } catch (InterruptedException e) {
