@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ContaBancaria",
+      "request": "launch",
+      "mainClass": "ContaBancaria",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
+      "type": "java",
       "name": "Jogo",
       "request": "launch",
       "mainClass": "Jogo",
