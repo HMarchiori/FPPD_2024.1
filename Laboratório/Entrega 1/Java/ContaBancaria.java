@@ -18,8 +18,8 @@ public class ContaBancaria {
     }
 
     public synchronized double depositar(double valor) {
-        synchronized(lock) {
-            this.saldo += valor;
+        synchronized(lock){
+        this.saldo += valor;
         }
         return saldo;
     }
