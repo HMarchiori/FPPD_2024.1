@@ -164,7 +164,6 @@ public class Mapa {
     }
 
     public String ataca() {
-        //TODO: Implementar
         return "Ataca";
     }
 
