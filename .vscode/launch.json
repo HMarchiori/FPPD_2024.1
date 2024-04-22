@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "DiningPhilosophers",
+      "request": "launch",
+      "mainClass": "DiningPhilosophers",
+      "projectName": "FPPD_2024.1_1ee10143"
+    },
+    {
+      "type": "java",
       "name": "ContaBancaria",
       "request": "launch",
       "mainClass": "ContaBancaria",
