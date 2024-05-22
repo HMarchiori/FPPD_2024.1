@@ -20,7 +20,7 @@ public class GameTimer implements Runnable {
     public void removerTempo(int segundos) {
         tempo -= segundos;
     }
-
+    // Timer
     @Override
     public void run() {
         while (tempo > 0) {
