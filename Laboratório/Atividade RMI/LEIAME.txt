@@ -1,0 +1,19 @@
+Compilar o programa em um terminal cmd:
+
+set PATH=C:\Program Files\Java\jdk-19\bin;%PATH%
+javac *.java
+
+
+Utilizar o programa:
+
+Serão necessário dois terminais para testar o programa.
+
+Em um terminal, inicializem o servidor utilizando:
+
+set PATH=C:\Program Files\Java\jdk-19\bin;%PATH%
+java NotasServer
+
+Em outro terminal, inicializem o cliente: 
+
+set PATH=C:\Program Files\Java\jdk-19\bin;%PATH%
+java NotasClient localhost Maria
