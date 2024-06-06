@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class Mapa {
     private List<String> mapa;
+    private List<Moeda> moedas;
     private Map<Character, ElementoMapa> elementos;
     private Map<Point, ElementoMapa> elementosPorPosicao;
     private int x; // Posição inicial X do personagem
@@ -67,12 +68,18 @@ public class Mapa {
         return elementos.get(id);
     }
     
+
     public List<String> getMapa() {
         return mapa;
     }
 
+    public List<Moeda> getMoedas() {
+        return moedas;
+    }
+    
     public synchronized void colocarMoeda(int x, int y) {
-        elementosPorPosicao.put(new Point(x, y), new Moeda('◉', Color.YELLOW));
+        elementosPorPosicao.put(new Point(x, y), new Moeda('◉', Color.YELLOW, x, y));
+        moedas.add(new Moeda('◉', Color.YELLOW, x, y));
     }
 
     public boolean estaRevelado(int x, int y) {
