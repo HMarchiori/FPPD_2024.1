@@ -14,11 +14,9 @@ public class GameState implements Serializable {
     private Player winner = null;
     private boolean gameRunning = true;
 
-    public GameState(Mapa map, GameTimer timer) {
+    public GameState() {
         this.players = new ArrayList<>();
         this.coinPositions = new ArrayList<>();
-        this.map = map;
-        this.timer = timer;
     }
 
     public List<Player> getPlayers() {
