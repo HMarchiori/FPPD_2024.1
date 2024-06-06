@@ -1,4 +1,4 @@
-package TDE2.T1;
+package TDE2.Game;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -76,7 +76,7 @@ public class Mapa {
     public List<Moeda> getMoedas() {
         return moedas;
     }
-    
+
     public synchronized void colocarMoeda(int x, int y) {
         elementosPorPosicao.put(new Point(x, y), new Moeda('◉', Color.YELLOW, x, y));
         moedas.add(new Moeda('◉', Color.YELLOW, x, y));

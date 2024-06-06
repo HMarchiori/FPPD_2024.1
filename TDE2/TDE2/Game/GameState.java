@@ -1,10 +1,11 @@
-import TDE2.T1.*;
+package TDE2.Game;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 public class GameState implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     private Mapa mapa;
     private int contadorMoedas;
     private List<Moeda> moedasColetadas;

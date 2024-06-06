@@ -1,4 +1,4 @@
-package TDE2.T1;
+package TDE2.Game;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;

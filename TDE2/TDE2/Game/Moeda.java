@@ -1,4 +1,4 @@
-package TDE2.T1;
+package TDE2.Game;
 
 import java.awt.Color;
 
@@ -22,7 +22,7 @@ public class Moeda implements ElementoMapa {
     public int getPosY() {
         return posY;
     }
-    
+
     public Character getSimbolo() {
         return simbolo;
     }

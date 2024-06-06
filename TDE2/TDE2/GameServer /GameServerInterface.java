@@ -1,8 +1,7 @@
-import TDE2.T1.*;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface GameServerInterface extends Remote{
+public interface GameServerInterface extends Remote {
     void registerClient(String clientId) throws RemoteException;
     void sendCommand(String clientId, int sequenceNumber, int posX, int posY, int numMoedas) throws RemoteException;
     GameState getGameState() throws RemoteException;
