@@ -57,8 +57,7 @@ public class GameState implements Serializable {
     }
 
     public void addPlayer(Player player) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addPlayer'");
+        players.add(player);
     }
 
 }

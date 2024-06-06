@@ -31,12 +31,11 @@ public class GameClient {
             public void run() {
                 try {
                     localGameState = gameServer.getGameState();
-                    // Atualizar a interface gráfica com o novo estado do jogo
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
             }
-        }, 0, 1000); // Atualiza a cada segundo
+        }, 0, 200); 
     }
 
     public void sendCommand(int posX, int posY) {

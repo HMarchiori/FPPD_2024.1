@@ -41,9 +41,8 @@ public class Player implements Serializable {
         return this.coinCounter;
     }
 
-    public void updatePosition(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+    public void updatePosition(Player player, int posX, int posY) {
+        player.setPosition(posX, posY);
     }
 
 }

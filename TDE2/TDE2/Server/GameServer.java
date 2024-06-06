@@ -3,10 +3,13 @@ package TDE2.Server;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 public class GameServer extends UnicastRemoteObject implements GameServerInterface {
     private GameState gameState;
+    private List<Player> players;
     private Map<String, Integer> lastProcessedSequenceNumbers;
 
     protected GameServer() throws RemoteException {
@@ -17,7 +20,7 @@ public class GameServer extends UnicastRemoteObject implements GameServerInterfa
     public void sendCommand(String clientId, int sequenceNumber, int posX, int posY, int numMoedas)
             throws RemoteException {
        if (lastProcessedSequenceNumbers.get(clientId) < sequenceNumber) {
-            //gameState.updatePosition(clientId, posX, posY);
+            players.updatePosition(clientId, posX, posY);
             lastProcessedSequenceNumbers.put(clientId, sequenceNumber);
         }
     }
