@@ -1,9 +1,11 @@
-package TDE2.Game;
+package TDE2.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
-import TDE2.Server.*;
+
+import TDE2.Game.Mapa;
+import TDE2.Game.Moeda;
 
 class Jogador {
     private String nome;

@@ -1,6 +1,5 @@
 package TDE2.Server;
 
-import TDE2.Game.*;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

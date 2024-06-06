@@ -2,8 +2,6 @@ package TDE2.Server;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-import TDE2.Game.GameState;
-
 public class GameServer {
     public static void main(String[] args) {
         try {
