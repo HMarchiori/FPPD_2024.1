@@ -11,8 +11,8 @@ public class Player implements Serializable {
 
     public Player(String id) {
         this.id = id;
-        this.posX = 0; // Posição inicial padrão
-        this.posY = 0; // Posição inicial padrão
+        this.posX = 0; 
+        this.posY = 0;
     }
 
     public String getId() {
@@ -36,9 +36,9 @@ public class Player implements Serializable {
         return coinCounter;
     }
 
-    public int updateCoinCounter(int value) {
-        this.coinCounter += value;
-        return this.coinCounter;
+    public int updateCoinCounter(Player player, int value) {
+        player.coinCounter = value;
+        return player.coinCounter;
     }
 
     public void updatePosition(Player player, int posX, int posY) {

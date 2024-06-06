@@ -3,22 +3,22 @@ package TDE2.Server;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import TDE2.Game.*;
 
-
 public class GameState implements Serializable {
+    private static final long serialVersionUID = 1L;
     private GameTimer timer;
-    public List<Player> players;
-    public List<Moeda> coinPositions;
-    public Mapa map;
-    public Player winner = null;
-    public boolean gameRunning = true;
-    public Object player;
+    private List<Player> players;
+    private List<Moeda> coinPositions;
+    private Mapa map;
+    private Player winner = null;
+    private boolean gameRunning = true;
 
-    public GameState() {
-        this.players = new ArrayList<Player>();
-        this.coinPositions = new ArrayList<Moeda>();
+    public GameState(Mapa map, GameTimer timer) {
+        this.players = new ArrayList<>();
+        this.coinPositions = new ArrayList<>();
+        this.map = map;
+        this.timer = timer;
     }
 
     public List<Player> getPlayers() {
@@ -37,13 +37,8 @@ public class GameState implements Serializable {
         return winner;
     }
 
-    public Player setWinner() {
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getCoinCounter() > winner.getCoinCounter()) {
-                winner = players.get(i);
-            }
-        }
-        return winner;
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 
     public boolean isGameRunning() {
@@ -60,4 +55,21 @@ public class GameState implements Serializable {
         players.add(player);
     }
 
+    public void updatePlayerPosition(String id, int posX, int posY) {
+        for (Player player : players) {
+            if (player.getId().equals(id)) {
+                player.setPosition(posX, posY);
+                break;
+            }
+        }
+    }
+
+    public void updatePlayerCoinCounter(String id, int coinCounter) {
+        for (Player player : players) {
+            if (player.getId().equals(id)) {
+                player.updateCoinCounter(player, coinCounter);
+                break;
+            }
+        }
+    }
 }
