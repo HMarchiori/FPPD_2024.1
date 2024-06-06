@@ -1,3 +1,5 @@
+package TDE2.T1;
+
 public class NPC {
     private int x;
     private int y;

@@ -1,3 +1,5 @@
+package TDE2.T1;
+
 import java.util.Random;
 
 public class MazeGenerator {

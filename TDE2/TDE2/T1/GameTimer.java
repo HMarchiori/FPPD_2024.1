@@ -1,3 +1,5 @@
+package TDE2.T1;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 

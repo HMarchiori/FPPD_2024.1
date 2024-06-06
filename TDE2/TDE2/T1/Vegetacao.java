@@ -1,3 +1,5 @@
+package TDE2.T1;
+
 import java.awt.Color;
 
 public class Vegetacao implements ElementoMapa, colorInterface {
