@@ -1,17 +1,57 @@
 package TDE2.Game;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import TDE2.Server.*;
 
-public class GameState {
+class Jogador {
+    private String nome;
+    private int posX;
+    private int posY;
+    private int numMoedas;
+
+    public Jogador(String nome, int posX, int posY) {
+        this.nome = nome;
+        this.posX = posX;
+        this.posY = posY;
+        this.numMoedas = 0;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+    
+    public int getNumMoedas() {
+        return numMoedas;
+    }
+
+}
+
+public class GameState extends UnicastRemoteObject implements GameServerInterface {
     private List<Jogador> jogadores;
     private Mapa mapa;
     private List<Moeda> moedas;
     private int recordeMoedas = 0;
     
-    public GameState(List<Jogador> jogadores, Mapa mapa, List<Moeda> moedas) {
-        this.jogadores = jogadores;
-        this.mapa = mapa;
-        this.moedas = moedas;
+    public GameState() throws RemoteException {
+        // Coloco algo??
     }
 
     public List<Jogador> getJogadores() {
@@ -56,6 +96,21 @@ public class GameState {
             }
         }
         return vencedor;
+    }
+
+
+    public void registerClient(String clientId) throws RemoteException {
+        // Register Client
+    }
+
+
+    public void sendCommand(String clientId, int sequenceNumber, int posX, int posY, int numMoedas) throws RemoteException {
+        // Send Command
+    }
+
+
+    public GameState getGameState() throws RemoteException {
+        return this;
     }
     
     }
