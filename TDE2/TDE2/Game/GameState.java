@@ -1,72 +1,61 @@
 package TDE2.Game;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
-public class GameState implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class GameState {
+    private List<Jogador> jogadores;
     private Mapa mapa;
-    private int contadorMoedas;
-    private List<Moeda> moedasColetadas;
-    private int posX;
-    private int posY;
+    private List<Moeda> moedas;
+    private int recordeMoedas = 0;
+    
+    public GameState(List<Jogador> jogadores, Mapa mapa, List<Moeda> moedas) {
+        this.jogadores = jogadores;
+        this.mapa = mapa;
+        this.moedas = moedas;
+    }
 
-    public GameState(String arquivoMapa) {
-        mapa = new Mapa(arquivoMapa);
-        contadorMoedas = 0;
-        moedasColetadas = new ArrayList<>();
-        posX = mapa.getX();
-        posY = mapa.getY();
+    public List<Jogador> getJogadores() {
+        return jogadores;
+    }
+
+    public void adicionarJogador(Jogador jogador) {
+        jogadores.add(jogador);
+    }
+
+    public void removerJogador(Jogador jogador) {
+        jogadores.remove(jogador);
     }
 
     public Mapa getMapa() {
         return mapa;
     }
 
-    public void setMapa(Mapa mapa) {
-        this.mapa = mapa;
+    public List<Moeda> getMoedas() {
+        return moedas;
     }
 
-    public int getContadorMoedas() {
-        return contadorMoedas;
+    public void adicionarMoeda(Moeda moeda) {
+        moedas.add(moeda);
     }
 
-    public void setContadorMoedas(int contadorMoedas) {
-        this.contadorMoedas = contadorMoedas;
+    public void removerMoeda(Moeda moeda) {
+        moedas.remove(moeda);
     }
 
-    public List<Moeda> getMoedasColetadas() {
-        return moedasColetadas;
+    public void atualizarPosicao(Jogador jogador, int posX, int posY) {
+        jogador.setPosX(posX);
+        jogador.setPosY(posY);
     }
 
-    public void setMoedasColetadas(List<Moeda> moedasColetadas) {
-        this.moedasColetadas = moedasColetadas;
+    public Jogador vencedor() {
+        Jogador vencedor = null;
+        for (int i = 0; i < jogadores.size(); i++) {
+            if (jogadores.get(i).getNumMoedas() > recordeMoedas) {
+                recordeMoedas = jogadores.get(i).getNumMoedas();
+                vencedor = jogadores.get(i);
+            }
+        }
+        return vencedor;
     }
-
-    public int getPosX() {
-        return posX;
+    
     }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public void coletarMoeda(Moeda moeda) {
-        moedasColetadas.add(moeda);
-        contadorMoedas++;
-    }
-
-    public void atualizarPosicao(int novoX, int novoY) {
-        this.posX = novoX;
-        this.posY = novoY;
-    }
-}
