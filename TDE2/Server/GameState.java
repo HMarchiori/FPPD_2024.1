@@ -40,13 +40,7 @@ public class GameState implements Serializable {
     }
 
     public boolean isGameRunning() {
-        return gameRunning;
-    }
-
-    public void checkGameRunning() {
-        if (timer.getTempoRestante() == 0) {
-            gameRunning = false;
-        }
+        return (gameRunning && timer.getTempoRestante() > 0);
     }
 
     public void addPlayer(Player player) {
