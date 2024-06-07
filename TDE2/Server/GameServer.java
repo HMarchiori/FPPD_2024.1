@@ -1,7 +1,9 @@
 package TDE2.Server;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameServer extends UnicastRemoteObject implements GameServerInterface {
     private static final long serialVersionUID = 1L;
@@ -15,14 +17,14 @@ public class GameServer extends UnicastRemoteObject implements GameServerInterfa
     }
 
     public synchronized void registerClient(String clientId) throws RemoteException {
-        if(!sequenceNumbers.containsKey(clientId)) {
+        if (!sequenceNumbers.containsKey(clientId)) {
             sequenceNumbers.put(clientId, 0);
             gameState.addPlayer(new Player(clientId));
         }
     }
 
     public synchronized void sendCommand(String clientId, int sequenceNumber, int posX, int posY, int coinCounter) throws RemoteException {
-        if(sequenceNumbers.get(clientId) < sequenceNumber) {
+        if (sequenceNumbers.get(clientId) < sequenceNumber) {
             sequenceNumbers.put(clientId, sequenceNumber);
             gameState.updatePlayerPosition(clientId, posX, posY);
             gameState.updatePlayerCoinCounter(clientId, coinCounter);
