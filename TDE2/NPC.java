@@ -1,4 +1,4 @@
-package TDE2.Game;
+
 
 public class NPC {
     private int x;

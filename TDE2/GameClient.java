@@ -1,8 +1,5 @@
-package TDE2.Client;
 
 import java.rmi.registry.Registry;
-
-import TDE2.Server.*;
 
 public class GameClient {
     private GameServerInterface gameServer;

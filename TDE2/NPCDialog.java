@@ -1,4 +1,4 @@
-package TDE2.Game;
+
 
 import javax.swing.*;
 import java.awt.*;

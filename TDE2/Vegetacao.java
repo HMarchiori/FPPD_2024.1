@@ -1,4 +1,4 @@
-package TDE2.Game;
+
 
 import java.awt.Color;
 
